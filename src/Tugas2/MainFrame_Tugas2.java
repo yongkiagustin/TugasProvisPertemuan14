@@ -191,7 +191,7 @@ public class MainFrame_Tugas2 extends javax.swing.JFrame {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "Sepertinya ada yang error?!");
+            JOptionPane.showMessageDialog(null, "Format Penulisan Ada Yang Salah");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
