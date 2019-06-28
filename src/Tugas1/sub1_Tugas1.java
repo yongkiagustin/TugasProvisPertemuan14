@@ -5,9 +5,12 @@
  */
 package Tugas1;
 
-import MainPackage.koneksi;
+import MainPackage.Config;
+import MainPackage.ConnectionBuilder;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
@@ -17,13 +20,29 @@ import javax.swing.JOptionPane;
  */
 public class sub1_Tugas1 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form sub1_Tugas1
-     */
+    private String mNim = "";
+    private String mName = "";
+    private Component mParentComponent = null;
+    
+    
+    public sub1_Tugas1(String nim, String nama, Component parent) {
+        initComponents();
+        layarTengah();
+        
+        mNim = nim;
+        mName = nama;
+        
+        txtNim.setText(mNim);
+        txtNama.setText(mName);
+        mParentComponent = parent;
+        
+        
+    }
+    
+    
     public void layarTengah() {
         // mengambil ukuran layar
         Dimension layar = Toolkit.getDefaultToolkit().getScreenSize();
-
         // membuat titik x dan y
         int x = layar.width / 2 - this.getSize().width / 2;
         int y = layar.height / 2 - this.getSize().height / 2;
@@ -31,18 +50,9 @@ public class sub1_Tugas1 extends javax.swing.JFrame {
         this.setLocation(x, y);
     }
     
-    public static String pnim,pnama;
-    public sub1_Tugas1(String nim, String nama) {
-        initComponents();
-        layarTengah();
-        pnim=nim;
-        pnama=nama;
-        
-        txtNim.setText(pnim);
-        txtNama.setText(pnama);
-        
-        
-    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,15 +169,47 @@ public class sub1_Tugas1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //disini masih ada bug
+        int nilai = 0;
         try{
-        String sql ="UPDATE t_Nilai SET Nim = '"+txtNim.getText()+"', Nama = '"+txtNama.getText()+"', Nilai = '"+txtNilai.getText()+"',Index= '"+"A"+"' WHERE nim = '"+txtNim.getText()+"'";
-            java.sql.Connection conn = (Connection) koneksi.configDB();
+            nilai = Integer.parseInt(txtNilai.getText());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Input nilai tidak valid : " + e.getMessage());
+            return;
+        }
+        
+        
+        char index = ' ';
+        
+        if(nilai > 80 && nilai <= 100){
+            index = 'A';
+        } else if(nilai > 70){
+            index = 'B';
+        } else if(nilai > 60){
+            index = 'C';
+        } else if(nilai > 50){
+            index = 'D';
+        } else if(nilai > 0 && nilai <= 40){
+            index = 'E';
+        } else {
+            JOptionPane.showMessageDialog(this, "Input nilai tidak valid (0 s/d 100)");
+            return;
+        }
+        
+        
+        
+        try{
+        String sql ="UPDATE t_nilai SET Nama = '"+txtNama.getText()+"', Nilai = '"+txtNilai.getText()+"', `Index` = '"+index+"' WHERE nim = '"+txtNim.getText()+"'";
+                java.sql.Connection conn = (Connection) Config.currentConnection;
+                
+            System.out.println(sql);
+            
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "data berhasil di edit");
-        }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "database belum tersambung");
+            pst.execute();           
+            JOptionPane.showMessageDialog(this, "data berhasil di edit");            
+            ((MainFrame_Tugas1) mParentComponent).load_table();
+        }catch (Exception e) {           
+            JOptionPane.showMessageDialog(this, "terjadi kesalahan : " + e.getMessage());
+            
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -202,7 +244,7 @@ public class sub1_Tugas1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new sub1_Tugas1(pnim,pnama).setVisible(true);
+                new sub1_Tugas1(null, null, null).setVisible(true);
             }
         });
     }

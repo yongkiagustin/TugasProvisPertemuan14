@@ -1,7 +1,7 @@
 package Tugas1;
 
+import MainPackage.Config;
 import java.sql.Connection;
-import MainPackage.koneksi;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -33,7 +33,7 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
         this.setLocation(x, y);
     }
 
-    private void load_table() {
+    public void load_table() {
         // membuat tampilan model tabel
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("No");
@@ -46,7 +46,7 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
         try {
             int no = 1;
             String sql = "select * from t_Nilai";
-            java.sql.Connection conn = (Connection) koneksi.configDB();
+            java.sql.Connection conn = (Connection) Config.currentConnection;
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
@@ -61,7 +61,7 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
     public MainFrame_Tugas1() {
         initComponents();
         load_table();
-       layarTengah();
+        layarTengah();
     }
 
     /**
@@ -192,7 +192,7 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
         try {
             
             String sql = "INSERT INTO t_Nilai VALUES ('"+txt_Nim.getText()+"','"+txt_Nama.getText()+"','"+"0"+"','"+"E"+"')";
-            java.sql.Connection conn = (Connection) koneksi.configDB();
+            java.sql.Connection conn = (Connection) Config.currentConnection;
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Penyimpanan Data Berhasil");
@@ -206,13 +206,13 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
         // menampilkan data kedalam form pengisian:
         try{
             int baris = jTable1.rowAtPoint(evt.getPoint());
-        String nim =jTable1.getValueAt(baris, 1).toString();
-        
-        String nama = jTable1.getValueAt(baris,2).toString();
-        //txt_Nim.setText(nim);
-        sub1_Tugas1 formNilai = new sub1_Tugas1(nim, nama);
-        formNilai.setVisible(true);
-        //txt_Nama.setText(nama);
+            String nim =jTable1.getValueAt(baris, 1).toString();
+
+            String nama = jTable1.getValueAt(baris,2).toString();
+            //txt_Nim.setText(nim);
+            sub1_Tugas1 formNilai = new sub1_Tugas1(nim, nama, this);
+            formNilai.setVisible(true);
+            //txt_Nama.setText(nama);
             
         }catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

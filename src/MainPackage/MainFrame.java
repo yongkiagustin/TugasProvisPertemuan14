@@ -46,8 +46,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        layarTengah();
-        koneksi.configDB();
+        layarTengah();        
+        Connection con = ConnectionBuilder.with("root", "password", "dbnilaimahasiswa")
+                                     .isDisableSsl(true)
+                                     .create();
+        
     }
 
     /**
@@ -104,6 +107,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Tugas 3");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -155,6 +163,11 @@ public class MainFrame extends javax.swing.JFrame {
         MainFrame_Tugas2 tugas2 = new MainFrame_Tugas2(x);
         tugas2.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        MainFrame_Tugas3 tugas3 = new MainFrame_Tugas3();
+        tugas3.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
