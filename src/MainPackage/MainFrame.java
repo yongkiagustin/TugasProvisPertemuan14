@@ -1,4 +1,7 @@
+package MainPackage;
 
+
+import java.sql.*;
 import Tugas1.MainFrame_Tugas1;
 import Tugas2.MainFrame_Tugas2;
 import Tugas3.MainFrame_Tugas3;
@@ -44,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         layarTengah();
+        koneksi.configDB();
     }
 
     /**
@@ -140,6 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // Tugas 1
         MainFrame_Tugas1 tugas1 = new MainFrame_Tugas1();
+        tugas1.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
