@@ -85,6 +85,7 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -203,11 +204,20 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // menampilkan data kedalam form pengisian:
-        int baris = jTable1.rowAtPoint(evt.getPoint());
+        try{
+            int baris = jTable1.rowAtPoint(evt.getPoint());
         String nim =jTable1.getValueAt(baris, 1).toString();
-        txt_Nim.setText(nim);
+        
         String nama = jTable1.getValueAt(baris,2).toString();
-        txt_Nama.setText(nama);
+        //txt_Nim.setText(nim);
+        sub1_Tugas1 formNilai = new sub1_Tugas1(nim, nama);
+        formNilai.setVisible(true);
+        //txt_Nama.setText(nama);
+            
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
         
     }//GEN-LAST:event_jTable1MouseClicked
 

@@ -13,7 +13,7 @@ import java.sql.*;
  */
 public class koneksi {
     private static Connection mysqlconfig;
-    public static Connection configDB(){
+    public static Connection configDB()throws SQLException{
         try {
             String url="jdbc:mysql://localhost:3306/dbnilaimahasiswa"; //url database
             String user="root"; //user database
