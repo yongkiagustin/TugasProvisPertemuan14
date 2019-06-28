@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -191,6 +192,14 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             
+            if(!validateValue(txt_Nim, "NIM")){
+                return;
+            }
+
+            if(!validateValue(txt_Nama, "Nama")){
+                return;
+            }
+            
             String sql = "INSERT INTO t_Nilai VALUES ('"+txt_Nim.getText()+"','"+txt_Nama.getText()+"','"+"0"+"','"+"E"+"')";
             java.sql.Connection conn = (Connection) Config.currentConnection;
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
@@ -221,6 +230,14 @@ public class MainFrame_Tugas1 extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTable1MouseClicked
 
+    public boolean validateValue(JTextField field, String name){
+        if(field.getText().toString().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Harap isi "+ name);
+            return false;
+        } 
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */

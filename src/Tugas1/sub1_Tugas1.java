@@ -13,6 +13,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -91,6 +92,7 @@ public class sub1_Tugas1 extends javax.swing.JFrame {
         jLabel4.setText("Index");
 
         txtNim.setEditable(false);
+        txtNim.setEnabled(false);
 
         txtNama.setEditable(false);
 
@@ -169,6 +171,16 @@ public class sub1_Tugas1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        if(!validateValue(txtNama, "Nama")){
+            return;
+        }
+        
+        if(!validateValue(txtNilai, "Nilai")){
+            return;
+        }
+        
+        
         int nilai = 0;
         try{
             nilai = Integer.parseInt(txtNilai.getText());
@@ -214,6 +226,15 @@ public class sub1_Tugas1 extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public boolean validateValue(JTextField field, String name){
+        if(field.getText().toString().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Harap isi "+ name);
+            return false;
+        } 
+        return true;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
