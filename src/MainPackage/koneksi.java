@@ -18,7 +18,7 @@ public class koneksi {
             String url="jdbc:mysql://localhost:3306/dbnilaimahasiswa"; //url database
             String user="root"; //user database
             String pass=""; //password database
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
             mysqlconfig=DriverManager.getConnection(url, user, pass);            
         } catch (Exception e) {
             System.err.println("koneksi gagal "+e.getMessage()); //perintah menampilkan error pada koneksi
